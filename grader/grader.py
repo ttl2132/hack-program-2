@@ -6,6 +6,7 @@ Calculates new grade based on input value
 
 import pandas as pd
 
+
 def grade(grade_file, syllabus, new_type, new_grade):
     """
     Shows the current grade and expected grade based on the csv file given.
@@ -29,6 +30,7 @@ def grade(grade_file, syllabus, new_type, new_grade):
     data = data.append(row, ignore_index=True)
     print(f"New Grade: {calculate_grade(data, syll_data)}")
 
+
 def calculate_grade(grade_df, syllabus_df):
     """
     Calculates the final grade based on the breakdowns given in the syllabus.
@@ -42,5 +44,5 @@ def calculate_grade(grade_df, syllabus_df):
     """
     grade_means = grade_df.groupby("Type").mean()
     df = grade_means.join(syllabus_df.set_index("Type"), on="Type")
-    df = df.assign(Raw = df["Grade"] * df["Percentage"]/100)
+    df = df.assign(Raw=df["Grade"] * df["Percentage"]/100)
     return df["Raw"].sum()
